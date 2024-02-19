@@ -1,0 +1,40 @@
+<main class="container py-5">
+  <section class="row">
+    <div class="col-md-8">
+      <h2>Noticias destacadas</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Título</th>
+            <th scope="col">Resumen</th>
+            <th scope="col">Fecha de publicación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let noticia of noticias
+                | paginate : { itemsPerPage: 10, currentPage: pageActual };
+              index as i
+            "
+          >
+            <td>{{ noticia.titulo }}</td>
+            <td>{{ noticia.resumen }}</td>
+            <td>{{ noticia.fechaPublicacion }}</td>
+            <td>
+              <button
+                class="btn btn-primary"
+                (click)="guardarFavorito(noticia)"
+              >
+                Guardar a favoritos
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls
+        (pageChange)="pageActual = $event"
+      ></pagination-controls>
+    </div>
+  </section>
+</main>

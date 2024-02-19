@@ -1,0 +1,53 @@
+<main class="container py-5">
+  <section class="row">
+    <div class="col-md-8">
+      <h2>Noticias favoritos</h2>
+
+      <input
+        type="text"
+        [(ngModel)]="tituloBusqueda"
+        placeholder="Buscar por título"
+      />
+      <button class="btn btn-primary" (click)="buscar()">Buscar noticia</button>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Título</th>
+            <th scope="col">Resumen</th>
+            <th scope="col">Fecha de publicación</th>
+            <th scope="col">Fecha en que se guardo la noticia</th>
+            <th scope="col">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let noticiaFavorito of noticiaFavorito
+                | paginate : { itemsPerPage: 10, currentPage: pageActual };
+              index as i
+            "
+          >
+            <td>{{ noticiaFavorito.titulo }}</td>
+            <td>{{ noticiaFavorito.resumen }}</td>
+            <td>{{ noticiaFavorito.fechaPublicacion }}</td>
+            <td>{{ noticiaFavorito.fechaNoticiaAgregadaFavorito }}</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-danger"
+                name="eliminar"
+                (click)="delete(noticiaFavorito)"
+              >
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls
+        (pageChange)="pageActual = $event"
+      ></pagination-controls>
+    </div>
+  </section>
+</main>
