@@ -1,0 +1,132 @@
+openapi: 3.0.3
+info:
+  title: API Plataforma de Noticias en Favoritos
+  description: API que permite guardar, obtener, eliminar y buscar las noticas en favoritos.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8081/api/noticias/favoritos
+tags:
+  - name: Noticias guardadas como favoritos
+    description: Permite al usuario gestionar toda la informacion relacionada con las noticias guardadas como favoritos.
+
+paths:
+  /api/noticias/favoritos:
+    post:
+      summary: Agrega una noticia a la lista de favoritos
+      tags:
+        - Noticias
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoticiaFavorito'
+      responses:
+        '201':
+          description: Noticia agregada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoticiaFavorito'
+        '400':
+          description: Error al agregar la noticia
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: Obtiene todas las noticias de la lista de favoritos
+      tags:
+        - Noticias
+      responses:
+        '200':
+          description: Lista de noticias en favoritos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NoticiaFavorito'
+  /api/noticias/favoritos/{id}:
+    delete:
+      summary: Elimina una noticia de la lista de favoritos
+      tags:
+        - Noticias
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: El ID de la noticia a eliminar
+      responses:
+        '204':
+          description: Noticia eliminada exitosamente
+        '400':
+          description: Error al eliminar la noticia
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/noticias/favoritos/buscar:
+    get:
+      summary: Busca noticias en la lista de favoritos por título
+      tags:
+        - Noticias
+      parameters:
+        - in: query
+          name: titulo
+          required: true
+          schema:
+            type: string
+          description: El título de la noticia a buscar
+      responses:
+        '200':
+          description: Lista de noticias que coinciden con el título
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NoticiaFavorito'
+        '400':
+          description: Error al realizar la búsqueda
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+components:
+  schemas:
+    NoticiaFavorito:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 12
+        titulo:
+          type: string
+          example: "Titulo de la noticia"
+        resumen:
+          type: string
+          example: "Resumen de la noticia"
+        fechaPublicacion:
+          type: string
+          format: date
+          example: "22 feb 2024"
+        fechaNoticiaAgregadaFavorito:
+          type: string
+          format: date
+          example: "22 feb 2024"
+    Error:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int32
+          example: 400
+        mensaje:
+          type: string
+          example: "Error al agregar la noticia"
