@@ -69,29 +69,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /api/noticias/favoritos/buscar:
+  /api/noticias/favoritos/{titulo}:
     get:
-      summary: Busca noticias en la lista de favoritos por título
+      summary: Busca una noticia en la lista de favoritos por título
       tags:
         - Noticias
       parameters:
-        - in: query
+        - in: path
           name: titulo
           required: true
           schema:
             type: string
-          description: El título de la noticia a buscar
+            description: El título de la noticia a buscar
       responses:
         '200':
-          description: Lista de noticias que coinciden con el título
+          description: La noticia se ha encontrado
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/NoticiaFavorito'
-        '400':
-          description: Error al realizar la búsqueda
+                $ref: '#/components/schemas/NoticiaFavorito'
+        '404':
+          description: La noticia no se encuentra en la lista de favoritos
           content:
             application/json:
               schema:
