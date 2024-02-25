@@ -10,7 +10,7 @@ tags:
     description: Permite al usuario gestionar toda la informacion relacionada con las noticias guardadas como favoritos.
 
 paths:
-  /api/noticias/favoritos:
+  /api/noticias/favoritoos:
     post:
       summary: Agrega una noticia a la lista de favoritos
       tags:
@@ -128,3 +128,4 @@ components:
         mensaje:
           type: string
           example: "Error al agregar la noticia"
+          
