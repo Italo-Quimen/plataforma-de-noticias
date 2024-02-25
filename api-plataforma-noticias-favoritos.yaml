@@ -10,7 +10,7 @@ tags:
     description: Permite al usuario gestionar toda la informacion relacionada con las noticias guardadas como favoritos.
 
 paths:
-  /api/noticias/favoritoos:
+  /api/noticias/favoritmos:
     post:
       summary: Agrega una noticia a la lista de favoritos
       tags:
